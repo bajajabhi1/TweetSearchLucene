@@ -64,7 +64,7 @@ public class TrecTopicParser {
 					//		.getChildNodes().item(0).getNodeValue();
 					String queryTweetTime = elem.getElementsByTagName(QUERY_TWEET_TIME_TAG).item(0)
 							.getChildNodes().item(0).getNodeValue();
-
+					queryTweetTime = queryTweetTime.trim();
 					queries.add(new QueryBean(queryNum, query, queryTweetTime));
 				}
 			}

@@ -13,9 +13,12 @@ import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
+import org.apache.lucene.search.BooleanClause;
+import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
+import org.apache.lucene.search.TermRangeQuery;
 import org.apache.lucene.search.TopScoreDocCollector;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
@@ -23,6 +26,7 @@ import org.apache.lucene.util.Version;
 public class TweetSearch {
 
 	public static final String RUN_ID = "project3";
+	public static final String RANGE_START_TWEET_ID = "0";
 
 	public static void main(String[] args) throws Exception {
 		String usage =
@@ -98,11 +102,21 @@ public class TweetSearch {
 				for(QueryBean queryBean : queryList)
 				{
 					Query query = parser.parse(queryBean.getQuery());
-					System.out.println("Searching for: " + query.toString(TweetIndexer.SEARCH_FIELD));
+					System.out.println("\nSearching for: " + queryBean.getQueryNum() + ":: " + queryBean.getQuery());
 
 					// search here
 					collector = TopScoreDocCollector.create(hitsPerPage, true);
-					searcher.search(query, collector);
+					System.out.println("Searching for range '" + 0 + " to " + queryBean.getQueryTweetTime() + "' using RangeQuery");
+					
+					Query rangeQuery = TermRangeQuery.newStringRange(TweetIndexer.TWEET_ID, RANGE_START_TWEET_ID, queryBean.getQueryTweetTime(), true,true);
+					
+					BooleanQuery booleanQuery = new BooleanQuery();
+					booleanQuery.add(query, BooleanClause.Occur.MUST);
+					booleanQuery.add(rangeQuery, BooleanClause.Occur.MUST);
+					System.out.println("Query: " + booleanQuery.toString());
+					
+					searcher.search(booleanQuery, collector);
+					
 					ScoreDoc[] hits = collector.topDocs().scoreDocs;
 					//writer.println(queryLine);
 					for(int hitCount=0;hitCount<hits.length;++hitCount)
@@ -110,7 +124,7 @@ public class TweetSearch {
 						int docId = hits[hitCount].doc;
 						Document d = searcher.doc(docId);
 						//System.out.println(d.get(ID) + " " + d.get(SEARCH_FIELD) + " " + hits[hitCount].score);
-						writer.println(queryBean.getQueryNum() + " " + d.get(TweetIndexer.ID) + " " + hits[hitCount].score + " " + RUN_ID); 
+						writer.println(queryBean.getQueryNum() + " " + d.get(TweetIndexer.TWEET_ID) + " " + hits[hitCount].score + " " + RUN_ID); 
 					}
 				}
 			} 
@@ -135,7 +149,7 @@ public class TweetSearch {
 				{
 					int docId = hits[hitCount].doc;
 					Document d = searcher.doc(docId);
-					writer.println(queryStr + " " + d.get(TweetIndexer.ID) + " " + hits[hitCount].score + " " + RUN_ID);
+					writer.println(queryStr + " " + d.get(TweetIndexer.TWEET_ID) + " " + hits[hitCount].score + " " + RUN_ID);
 					writer.println(d.get(TweetIndexer.SEARCH_FIELD));
 				}				
 			}

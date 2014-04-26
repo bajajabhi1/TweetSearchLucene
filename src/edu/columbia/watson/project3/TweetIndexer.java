@@ -29,7 +29,7 @@ public class TweetIndexer {
 	public static final char COMMA_SEPERATOR = ',';
 	public static final char LINE_JOIN_CHAR = ' ';
 	public static final String SEARCH_FIELD = "text";
-	public static final String ID = "id";	
+	public static final String TWEET_ID = "id";	
 	public static final String DIR_CORRECTED_OUPTUT = "E:/Watson-Project-Data/2012/tweets-Id-corrected";
 
 	public static void main(String[] args)
@@ -173,7 +173,7 @@ public class TweetIndexer {
 									Field pathField = new StringField("path", docDir.getPath(), Field.Store.NO);
 									document.add(pathField);
 
-									Field idField = new StringField(ID, tweetId, Field.Store.YES);
+									Field idField = new StringField(TWEET_ID, tweetId, Field.Store.YES);
 									document.add(idField);
 									document.add(new TextField(SEARCH_FIELD, tweetText, Field.Store.YES ));
 									idxWriter.addDocument(document);
@@ -203,7 +203,7 @@ public class TweetIndexer {
 						Field pathField = new StringField("path", docDir.getPath(), Field.Store.NO);
 						document.add(pathField);
 
-						Field idField = new StringField(ID, tweetId, Field.Store.YES);
+						Field idField = new StringField(TWEET_ID, tweetId, Field.Store.YES);
 						document.add(idField);
 						document.add(new TextField(SEARCH_FIELD, tweetText, Field.Store.YES ));
 						idxWriter.addDocument(document);
