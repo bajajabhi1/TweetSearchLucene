@@ -157,7 +157,7 @@ public class TweetIndexer {
 							if(tweetText!=null) // precautionary check
 							{
 								// Join this to tweetText
-								System.out.println("case 1, " + currTweetLine);
+								//System.out.println("case 1, " + currTweetLine);
 								tweetText = tweetText + LINE_JOIN_CHAR +  currTweetLine;	
 							}
 						}
@@ -190,7 +190,7 @@ public class TweetIndexer {
 								if(tweetText!=null) // precautionary check
 								{
 									// Join this to tweetText
-									System.out.println("case 2, " + currTweetLine);
+									//System.out.println("case 2, " + currTweetLine);
 									tweetText = tweetText + LINE_JOIN_CHAR + currTweetLine;	
 								}
 							}
