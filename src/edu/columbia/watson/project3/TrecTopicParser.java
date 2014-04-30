@@ -21,7 +21,7 @@ import org.xml.sax.SAXException;
 public class TrecTopicParser {
 	
 	public static final String QUERY_NUM_TAG = "num";
-	public static final String QUERY_TAG = "title";
+	public static final String QUERY_TAG = "query";
 	public static final String QUERY_TIME_TAG = "querytime";
 	public static final String QUERY_TWEET_TIME_TAG = "querytweettime";
 	
@@ -96,7 +96,7 @@ public class TrecTopicParser {
 			while ((line = br.readLine()) != null) {
 				// use comma as separator
 				String[] query = line.split(csvSplitBy);
-				
+				System.out.println(line);
 				String queryId = query[0] ;
 				int lines = Integer.parseInt(query[1]) ;
 				
