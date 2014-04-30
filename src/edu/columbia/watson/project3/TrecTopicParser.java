@@ -1,6 +1,9 @@
 package edu.columbia.watson.project3;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,7 +21,7 @@ import org.xml.sax.SAXException;
 public class TrecTopicParser {
 	
 	public static final String QUERY_NUM_TAG = "num";
-	public static final String QUERY_TAG = "query";
+	public static final String QUERY_TAG = "title";
 	public static final String QUERY_TIME_TAG = "querytime";
 	public static final String QUERY_TWEET_TIME_TAG = "querytweettime";
 	
@@ -32,7 +35,7 @@ public class TrecTopicParser {
 
 	}
 
-	public List<QueryBean> parseTrecTopics(String fileName)
+	public List<QueryBean> parseTrecTopics(String fileName,String expandFile)
 	{
 		List<QueryBean> queries = null;
 		try
@@ -45,12 +48,12 @@ public class TrecTopicParser {
 			// Document class.
 			Document document = builder.parse(file);
 			queries = new LinkedList<QueryBean>();
-
+			
 			NodeList nodeList = document.getDocumentElement().getChildNodes();
 			for (int i = 0; i < nodeList.getLength(); i++) {
-
+				
 				Node node = nodeList.item(i);
-
+				//System.out.println(node.getNodeName());
 				if (node.getNodeType() == Node.ELEMENT_NODE) {
 					Element elem = (Element) node;
 					
@@ -83,6 +86,53 @@ public class TrecTopicParser {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		BufferedReader br = null;
+		String line = "";
+		String csvSplitBy = ",";
+	 
+		try {
+	   
+			br = new BufferedReader(new FileReader(expandFile));
+			while ((line = br.readLine()) != null) {
+				// use comma as separator
+				String[] query = line.split(csvSplitBy);
+				
+				String queryId = query[0] ;
+				int lines = Integer.parseInt(query[1]) ;
+				
+				for(QueryBean expandingQueryId : queries){
+					if (expandingQueryId.getQueryNum().equals(queryId)){
+						for ( int nLines = 0 ; nLines < lines ; nLines ++ ) {
+							
+							line = br.readLine() ;
+							//System.out.println(line);
+							String[] wordExp = line.split(csvSplitBy);
+							expandingQueryId.addExpansion(wordExp[0], wordExp[1], Double.parseDouble(wordExp[2]) );
+						}
+						break;
+					}
+				}
+				
+	 
+			}
+	 
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (br != null) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		
+		
+		
 		return queries;
 	}
 

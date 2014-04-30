@@ -1,6 +1,10 @@
 package edu.columbia.watson.project3;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class QueryBean {
 
@@ -8,9 +12,17 @@ public class QueryBean {
 	private String query;
 	private Date queryDate;
 	private String queryTweetTime;
-	
+	public class wordExpansion{
+		public String word ; 
+		public String expansion ; 
+		public double score ;
+	}
+	public List<wordExpansion> expandedList ;
+
 	public QueryBean(String queryNum, String query, String queryTweetTime)
 	{
+		expandedList = new ArrayList<wordExpansion> ();
+		
 		this.queryNum  = queryNum;
 		this.query = query;
 		this.queryTweetTime = queryTweetTime;
@@ -44,6 +56,13 @@ public class QueryBean {
 	public String toString()
 	{
 		return this.queryNum = "," + this.query + "," + this.queryTweetTime;
+	}
+	public void addExpansion ( String word, String expansion , double score){
+		wordExpansion temp = new wordExpansion() ;
+		temp.expansion = expansion ;
+		temp.score = score ;
+		temp.word = word ; 
+		expandedList.add(temp);
 	}
 	
 	public static void main(String args[])

@@ -35,13 +35,15 @@ public class TweetSearch {
 			System.out.println(usage);
 			System.exit(0);
 		}
-
+		
 		String index = "index";
 		String outputFile = "output.txt";
 		String queryFile = null;
 		String queryString = null;
+		String expandString = null;
+		String expandFile = null ; 
 		int hitsPerPage = 1000;
-
+		
 		for(int i = 0;i < args.length;i++)
 		{
 			if ("-index".equals(args[i]))
@@ -74,16 +76,77 @@ public class TweetSearch {
 				}
 				i++;
 			}
+			else if ("-expandSingle".equals(args[i])){
+				expandString =  args[i] ;
+			}
+			else if ("-expandFile".equals(args[i])){
+				expandFile = args[i+1];
+				i++;
+			}
+			
 		}
 
 		IndexReader reader = DirectoryReader.open(FSDirectory.open(new File(index)));
 		IndexSearcher searcher = new IndexSearcher(reader);
-		runSearch(searcher, queryFile, queryString, outputFile, hitsPerPage);
+		runSearch(searcher, queryFile, expandFile, queryString, expandString , outputFile, hitsPerPage);
 
 		reader.close();
 	}
-
-	public static void runSearch(IndexSearcher searcher, String queryFile, String queryStr, String outputFile, int hitsPerPage)
+	public static String expandQuery(QueryBean q, int method, int wordMax, float minScore , int queryMax, double queryScore){
+		/*Method 1 : add it to original query, wordMax words with score >-= minScore expanded for each word in query
+		 *Method 2 : original query 
+		 *Method 3 : just hashtag on expansion side 
+		 */
+		String expanded = null;
+		
+		String query = q.getQuery() ;
+		String[] queryW = query.split(" ");
+		double totalWordsAdded = 0 ; 
+		double scoreYet = 0 ; 
+		
+		switch ( method){
+		case 1:		expanded = query;
+					for ( int i =0 ; i < queryW.length ; i ++ ){
+						int expansionPerWord = 0 ;
+						for ( int j = 0 ; j < q.expandedList.size() && expansionPerWord < wordMax ; j++ ){
+								 if (q.expandedList.get(j).word.equals(queryW[i]) &&  q.expandedList.get(j).score >= minScore){
+									 expansionPerWord ++;
+									 totalWordsAdded ++ ; 
+									 scoreYet += q.expandedList.get(j).score ;
+									 expanded = expanded + " " + q.expandedList.get(j).expansion ;
+								 }
+				 
+						}
+					}
+					queryScore = scoreYet / totalWordsAdded ;
+					break;
+		case 2:		expanded = query ; 
+					queryScore= 1;
+					break ;
+					
+		case 3:		totalWordsAdded = 0 ; 
+					scoreYet = 0 ; 
+					expanded = query;
+					for ( int i =0 ; i < queryW.length ; i ++ ){
+						int expansionPerWord = 0 ;
+						for ( int j = 0 ; j < q.expandedList.size() && expansionPerWord < wordMax ; j++ ){
+								 if (q.expandedList.get(j).word.equals(queryW[i]) &&  q.expandedList.get(j).score >= minScore && q.expandedList.get(j).word.contains("#")){
+									 expansionPerWord ++;
+									 totalWordsAdded ++ ; 
+									 scoreYet += q.expandedList.get(j).score ;
+									 expanded = expanded + " " + q.expandedList.get(j).expansion ;
+								 }
+				 
+						}
+					}
+					queryScore = scoreYet / totalWordsAdded ;
+					break;
+			
+					
+		}
+		return expanded ;
+	}
+	public static void runSearch(IndexSearcher searcher, String queryFile, String expandFile, String queryStr, String expandString, String outputFile, int hitsPerPage)
 	{
 		Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_47);
 		TopScoreDocCollector collector = null;
@@ -91,25 +154,30 @@ public class TweetSearch {
 		PrintWriter writer = null;
 		try
 		{
-
+			
 			writer = new PrintWriter(outputFile, "UTF-8");
 			QueryParser parser = new QueryParser(Version.LUCENE_47, TweetIndexer.SEARCH_FIELD, analyzer);
+			
 			// Take the query from arguments otherwise from command line input
 			if (queryFile != null)
-			{
+			{   
 				TrecTopicParser topicParser = new TrecTopicParser();
-				List<QueryBean> queryList = topicParser.parseTrecTopics(queryFile);
+				List<QueryBean> queryList = topicParser.parseTrecTopics(queryFile,expandFile);
 				for(QueryBean queryBean : queryList)
-				{
-					Query query = parser.parse(queryBean.getQuery());
-					System.out.println("\nSearching for: " + queryBean.getQueryNum() + ":: " + queryBean.getQuery());
-
-					// search here
+				{	
+					double searchQueryPower = -1;
+					String searchQuery = expandQuery(queryBean, 1, 10, 0 , 100, searchQueryPower);
+					//String searchQuery = queryBean.getQuery();
+					Query query = parser.parse(searchQuery);
+					System.out.println("\nSearching for: " + queryBean.getQueryNum() + " :: " + queryBean.getQuery() + " :: " + searchQuery);
+					
+					//search here
+					
 					collector = TopScoreDocCollector.create(hitsPerPage, true);
 					System.out.println("Searching for range '" + 0 + " to " + queryBean.getQueryTweetTime() + "' using RangeQuery");
-					
+																		
 					Query rangeQuery = TermRangeQuery.newStringRange(TweetIndexer.TWEET_ID, RANGE_START_TWEET_ID, queryBean.getQueryTweetTime(), true,true);
-					
+						
 					BooleanQuery booleanQuery = new BooleanQuery();
 					booleanQuery.add(query, BooleanClause.Occur.MUST);
 					booleanQuery.add(rangeQuery, BooleanClause.Occur.MUST);
@@ -126,6 +194,7 @@ public class TweetSearch {
 						//System.out.println(d.get(ID) + " " + d.get(SEARCH_FIELD) + " " + hits[hitCount].score);
 						writer.println(queryBean.getQueryNum() + " " + d.get(TweetIndexer.TWEET_ID) + " " + hits[hitCount].score + " " + RUN_ID); 
 					}
+					
 				}
 			} 
 			else
@@ -138,14 +207,15 @@ public class TweetSearch {
 					queryStr = queryScanner.next();
 					queryScanner.close();
 				}
+				
 				Query query = parser.parse(queryStr.trim());
 				System.out.println("Searching for: " + query.toString(TweetIndexer.SEARCH_FIELD));
-
+				
 				// search here
 				collector = TopScoreDocCollector.create(hitsPerPage, true);
 				searcher.search(query, collector);
 				ScoreDoc[] hits = collector.topDocs().scoreDocs;
-				for(int hitCount=0;hitCount<hits.length;++hitCount)
+				for (int hitCount=0;hitCount<hits.length;++hitCount)
 				{
 					int docId = hits[hitCount].doc;
 					Document d = searcher.doc(docId);
