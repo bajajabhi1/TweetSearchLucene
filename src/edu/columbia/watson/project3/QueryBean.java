@@ -12,13 +12,8 @@ public class QueryBean {
 	private String query;
 	private Date queryDate;
 	private String queryTweetTime;
-	public class wordExpansion{
-		public String word ; 
-		public String expansion ; 
-		public double score ;
-	}
 	public List<wordExpansion> expandedList ;
-
+	
 	public QueryBean(String queryNum, String query, String queryTweetTime)
 	{
 		expandedList = new ArrayList<wordExpansion> ();
