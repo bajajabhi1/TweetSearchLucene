@@ -211,7 +211,7 @@ public class TweetSearch {
 							
 						}
 						allQueriesScore.add(TempScore);
-					}
+					}	
 					
 		}
 		return expanded ;
