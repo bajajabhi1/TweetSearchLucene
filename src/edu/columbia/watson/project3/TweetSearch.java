@@ -100,8 +100,11 @@ public class TweetSearch {
 	}
 	public static void createWordExpansionList(List<String> allQueries , List<ArrayList<String> > wordExps , int i  , String queryStr) {
 		if ( i >= wordExps.size() ){
+			
 			queryStr = queryStr.trim() ;
+			System.out.println ( queryStr);
 			allQueries.add(queryStr);
+			return ;
 			//return 0 ; 
 		}
 		for (int k = 0 ; k < wordExps.get(i).size() ; k ++){
@@ -183,21 +186,23 @@ public class TweetSearch {
 						for ( int j = 0 ; j < q.expandedList.size() && expansionPerWord < wordMax ; j++ ){
 							if (q.expandedList.get(j).word.equals(queryW[i]) ){
 								 expansionPerWord ++;
-								 System.out.println("Fuck you " + queryW[i]) ;
+								 System.out.println(q.expandedList.get(j).word) ;
 								 exps.add(q.expandedList.get(j).expansion) ; 
 								  
 							 }
 						}
 						//System.out.println(expansionPerWord) ;
-						if ( exps.size() > 0)
+						if ( exps.size() > 0){
 							wordExps.add( exps);
+							//System.out.println(exps.size());
+						}
 						
 					}
 					System.out.println(wordExps.size());
-					List<String> allQueries = null ; 
+					List<String> allQueries = new ArrayList<String>() ; 
 					
 					createWordExpansionList(allQueries, wordExps, 0, "");
-					List<Double> allQueriesScore = null; 
+					List<Double> allQueriesScore = new ArrayList<Double>() ;  
 					for (int i =0 ; i < allQueries.size() ; i ++){
 						String[] generatedQWords = allQueries.get(i).split(" ");
 						double TempScore = 0 ;
