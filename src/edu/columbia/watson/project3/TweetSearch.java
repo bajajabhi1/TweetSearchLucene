@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +49,7 @@ public class TweetSearch {
 		String queryString = null;
 		String expandString = null;
 		String expandFile = null ; 
+		String bingFile = null ; 
 		int hitsPerPage = 5000;
 		
 		for(int i = 0;i < args.length;i++)
@@ -89,12 +91,16 @@ public class TweetSearch {
 				expandFile = args[i+1];
 				i++;
 			}
+			else if("-bingFile".equals(args[i])){
+				bingFile = args[i+1];
+				i ++ ; 
+			}
 			
 		}
 
 		IndexReader reader = DirectoryReader.open(FSDirectory.open(new File(index)));
 		IndexSearcher searcher = new IndexSearcher(reader);
-		runSearch(searcher, queryFile, expandFile, queryString, expandString , outputFile, hitsPerPage);
+		runSearch(searcher, queryFile, expandFile,bingFile, queryString, expandString , outputFile, hitsPerPage);
 
 		reader.close();
 	}
@@ -119,8 +125,11 @@ public class TweetSearch {
 		 *Method 3 : just hashtag on expansion side 
 		 */
 		String expanded = null;
+		//List<String> allQueries = new ArrayList<String>() ; 
+		//List<Double> allQueriesScore = new ArrayList<Double>() ;  
 		
 		String query = q.getQuery() ;
+		query = query.toLowerCase();
 		query = query.trim() ; 
 		String[] queryW = query.split(" ");
 		double totalWordsAdded = 0 ; 
@@ -199,24 +208,37 @@ public class TweetSearch {
 						
 					}
 					System.out.println(wordExps.size());
-					List<String> allQueries = new ArrayList<String>() ; 
+					//List<String> allQueries = new ArrayList<String>() ; 
 					
-					createWordExpansionList(allQueries, wordExps, 0, "");
-					List<Double> allQueriesScore = new ArrayList<Double>() ;  
-					for (int i =0 ; i < allQueries.size() ; i ++){
-						String[] generatedQWords = allQueries.get(i).split(" ");
+					createWordExpansionList(expandedQueryList, wordExps, 0, "");
+					//List<Double> allQueriesScore = new ArrayList<Double>() ;  
+					for (int i =0 ; i < expandedQueryList.size() ; i ++){
+						String[] generatedQWords = expandedQueryList.get(i).split(" ");
 						double TempScore = 0 ;
 						for ( int j =0 ; j < generatedQWords.length ; j ++){
-							TempScore += wordPairScore.get(queryW[j] + "%" + generatedQWords[j]);
+							System.out.println("Hello");
+							System.out.println(queryW[j] );
+							System.out.println(generatedQWords[j] );
+							double TempTempScore = 0 ;
+							for ( int k = 0 ; k < queryW.length ; k ++ ){
+								if ( wordPairScore.get(queryW[k] + "%" + generatedQWords[j]) != null){
+									TempTempScore = wordPairScore.get(queryW[k] + "%" + generatedQWords[j]) ;
+									break;
+								}
+							}
+							TempScore += TempTempScore ;
 							
 						}
-						allQueriesScore.add(TempScore);
+						expandedQueryScoreList.add(TempScore);
 					}	
 					
 		}
+		///expandedQueryList = new ArrayList<String>(allQueries); 
+		//expandedQueryScoreList = new ArrayList<Double>(allQueriesScore);
+		System.out.println(expandedQueryList.size());
 		return expanded ;
 	}
-	public static void runSearch(IndexSearcher searcher, String queryFile, String expandFile, String queryStr, String expandString, String outputFile, int hitsPerPage)
+	public static void runSearch(IndexSearcher searcher, String queryFile, String expandFile,String bingFile, String queryStr, String expandString, String outputFile, int hitsPerPage)
 	{
 		Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_47);
 		TopScoreDocCollector collector = null;
@@ -232,16 +254,18 @@ public class TweetSearch {
 			if (queryFile != null)
 			{   
 				TrecTopicParser topicParser = new TrecTopicParser();
-				List<QueryBean> queryList = topicParser.parseTrecTopics(queryFile,expandFile);
+				List<QueryBean> queryList = topicParser.parseTrecTopics(queryFile,expandFile,bingFile);
+				
 				for(QueryBean queryBean : queryList)
 				{	
 					double searchQueryPower = -1;
 					List<String> expandedQueryList = new ArrayList<String>() ;
 					List< Double>expandedQueryScoreList = new ArrayList<Double>();
 					String searchQuery = expandQuery(queryBean, 4, 5, 0 , 100, searchQueryPower, expandedQueryList, expandedQueryScoreList);
-					
+					System.out.println(expandedQueryList.size());
 					//searchQuery = searchQuery ; 
 					//String searchQuery = queryBean.getQuery();
+					
 					String[] searchQueryW = searchQuery.split(" ");
 					
 					Query query = null	;
@@ -267,8 +291,7 @@ public class TweetSearch {
 					
 					SpanNearQuery spanNear = new SpanNearQuery(nullVal, 10, false) ;
 					//SpanNearQuery spanNearFinal = new SpanNearQuery(null, hitsPerPage, true) ;
-					
-					
+										
 					BooleanQuery booleanQuery = new BooleanQuery();
 					booleanQuery.add(query, BooleanClause.Occur.MUST);
 					booleanQuery.add(rangeQuery, BooleanClause.Occur.MUST);
@@ -277,15 +300,68 @@ public class TweetSearch {
 					searcher.search(booleanQuery, collector);
 					
 					ScoreDoc[] hits = collector.topDocs().scoreDocs;
+					
 					//writer.println(queryLine);
-					for(int hitCount=0;hitCount<hits.length;++hitCount)
-					{
+					
+					for ( int hitCount=0 ; hitCount<hits.length ; ++hitCount )
+					{	
 						//System.out.println("in It" ) ;
 						int docId = hits[hitCount].doc;
 						Document d = searcher.doc(docId);
 						//System.out.println(d.get(ID) + " " + d.get(SEARCH_FIELD) + " " + hits[hitCount].score);
+						
 						writer.println(queryBean.getQueryNum() + " " + d.get(TweetIndexer.TWEET_ID) + " " + hits[hitCount].score + " " + RUN_ID); 
+						
 					}
+					List <WeightedTweetId> weightedTweetsList = new ArrayList < WeightedTweetId> () ; 
+					
+					if (expandedQueryList.size() > 0 ){
+						if ( expandedQueryList.size() == expandedQueryScoreList.size()){
+							for (int i = 0 ; i < expandedQueryList.size(); i ++){
+								String searchQuery1  = expandedQueryList.get(i);
+								Query query1 = null	;
+								try{
+									 query1 = parser.parse(searchQuery1);
+								}
+								catch(Exception E){
+									
+								}
+								BooleanQuery booleanQuery1 = new BooleanQuery();
+								booleanQuery1.add(query1, BooleanClause.Occur.MUST);
+								booleanQuery1.add(rangeQuery , BooleanClause.Occur.MUST);
+								System.out.println("Query: " + booleanQuery1.toString());
+								collector = TopScoreDocCollector.create(hitsPerPage, true);
+
+								searcher.search(booleanQuery1, collector);
+								
+								ScoreDoc[] hits1 = collector.topDocs().scoreDocs;
+								
+								//writer.println(queryLine);
+								
+								for ( int hitCount=0 ; hitCount<hits1.length ; ++hitCount )
+								{	
+									//System.out.println("in It" ) ;
+									int docId = hits1[hitCount].doc;
+									Document d = searcher.doc(docId);
+									//System.out.println(d.get(ID) + " " + d.get(SEARCH_FIELD) + " " + hits[hitCount].score);
+									WeightedTweetId e = new WeightedTweetId(d.get(TweetIndexer.TWEET_ID) , hits1[hitCount].score*expandedQueryScoreList.get(i));
+									weightedTweetsList.add(e);
+								}
+							}
+							Collections.sort(weightedTweetsList,new WeightedTweetComparator());
+							for ( int k =0 ; k < weightedTweetsList.size() ; k ++) {
+								writer.println(queryBean.getQueryNum() + " " + weightedTweetsList.get(k).TweetId + " " + weightedTweetsList.get(k).score + " " + RUN_ID); 
+							}
+							
+						}
+						else{
+							System.out.println ( "Score List size != Query List size") ; 
+						}
+					}
+					else{
+						System.out.println ( " Expanded Query List not generated ! ") ;
+					}
+					
 					
 				}
 			} 
@@ -314,8 +390,11 @@ public class TweetSearch {
 					writer.println(queryStr + " " + d.get(TweetIndexer.TWEET_ID) + " " + hits[hitCount].score + " " + RUN_ID);
 					writer.println(d.get(TweetIndexer.SEARCH_FIELD));
 				}				
+				
 			}
 			writer.close();
+			
+			
 		} 
 		catch (IOException e)
 		{

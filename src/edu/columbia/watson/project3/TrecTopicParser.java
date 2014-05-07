@@ -3,8 +3,10 @@ package edu.columbia.watson.project3;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -35,7 +37,7 @@ public class TrecTopicParser {
 
 	}
 
-	public List<QueryBean> parseTrecTopics(String fileName,String expandFile)
+	public List<QueryBean> parseTrecTopics(String fileName,String expandFile, String bingFile)
 	{
 		List<QueryBean> queries = null;
 		try
@@ -43,7 +45,9 @@ public class TrecTopicParser {
 			File file = new File(fileName);
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
-
+			//PrintWriter writer = new PrintWriter (new FileOutputStream(new File(bingFile),true)) ; 
+			//writer = new PrintWriter(bingFile,"UTF-8");
+			
 			// Load the input XML document, parse it and return an instance of the
 			// Document class.
 			Document document = builder.parse(file);
@@ -63,15 +67,24 @@ public class TrecTopicParser {
 					queryNum = queryNum.substring(queryNum.indexOf(':')+2).trim();
 					String query = elem.getElementsByTagName(QUERY_TAG).item(0)
 							.getChildNodes().item(0).getNodeValue();
-					//String queryTime = elem.getElementsByTagName(QUERY_TIME_TAG).item(0)
-					//		.getChildNodes().item(0).getNodeValue();
+					String queryTime = elem.getElementsByTagName(QUERY_TIME_TAG).item(0)
+							.getChildNodes().item(0).getNodeValue();
 					String queryTweetTime = elem.getElementsByTagName(QUERY_TWEET_TIME_TAG).item(0)
 							.getChildNodes().item(0).getNodeValue();
 					queryTweetTime = queryTweetTime.trim();
 					queries.add(new QueryBean(queryNum, query, queryTweetTime));
+					/*
+					writer.println(queryNum);
+					writer.println(queryTweetTime) ;
+					queryTime = queryTime.trim() ;
+					String [] queryTimeElem = queryTime.split(" ");
+					String expandedQuery = queryTimeElem[1] + " " + queryTimeElem[5] + query ;
+					writer.println(expandedQuery);
+					*/
+					
 				}
 			}
-
+			//writer.close();
 			// Print all employees.
 			//for (QueryBean query : queries)
 			//	System.out.println(query.toString());
@@ -91,7 +104,7 @@ public class TrecTopicParser {
 		String csvSplitBy = ",";
 	 
 		try {
-	   
+			   
 			br = new BufferedReader(new FileReader(expandFile));
 			while ((line = br.readLine()) != null) {
 				// use comma as separator
@@ -130,10 +143,21 @@ public class TrecTopicParser {
 			}
 		}
 
+
 		
+		
+		
+				/*for ( int spitQueries = 0 ; spitQueries < queries.size() ; spitQueries ++){
+			QueryBean qq = queries.get(spitQueries) ;
+			String qqId = qq.getQueryNum() ;
+			String qqDate = qq.getQueryDate().toString() ;
+			String qqTweetTime = qq.getQueryTweetTime() ;
+			String qqQuery = qq.getQuery() ;
+		}*/
 		
 		
 		return queries;
+		
 	}
 
 }
