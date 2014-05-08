@@ -48,17 +48,13 @@ public class BingTopicParser {
 			String query = "" ;
 			String queryTweetTime = "" ; 
 			while ((line  = bf1.readLine()) != null) {
-				lineCount ++ ; 
-				line= line.trim() ; 
-				if (lineCount %3 == 1)	
-					queryNum = line ; 
-				else if ( lineCount %3 == 2)
-					queryTweetTime = line ; 
-				else {
-					query = line ;
-					queries.add(new QueryBean(queryNum, query, queryTweetTime));
-				}
 				
+				lineCount ++ ; 
+				String lines[] = line.split(",");
+				queryNum = lines[0] ; 
+				queryTweetTime = lines[1] ; 
+				query = lines[3] ;
+				queries.add(new QueryBean(queryNum, query, queryTweetTime));
 										
 			}
 			
