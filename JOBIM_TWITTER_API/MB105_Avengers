@@ -1,0 +1,55 @@
+# error: none
+# holing: twitter2012Bigram, method: getSimilarTerms
+# format: 
+# Term	Score	Term-URI
+Avengers	1000.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Avengers?format=tsv
+AVENGERS	24.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/AVENGERS?format=tsv
+#Avengers	22.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/%23Avengers?format=tsv
+Avenger	22.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Avenger?format=tsv
+Prometheus	21.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Prometheus?format=tsv
+@Avengers	18.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/@Avengers?format=tsv
+avengers	18.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/avengers?format=tsv
+X-Men	17.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/X-Men?format=tsv
+Huntsman	16.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Huntsman?format=tsv
+Battleship	16.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Battleship?format=tsv
+#TheAvengers	16.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/%23TheAvengers?format=tsv
+Marvel	14.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Marvel?format=tsv
+3D	14.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/3D?format=tsv
+Movie	13.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Movie?format=tsv
+Spider-Man	13.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Spider-Man?format=tsv
+Spiderman	13.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Spiderman?format=tsv
+Wars	13.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Wars?format=tsv
+Skyfall	12.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Skyfall?format=tsv
+Games	11.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Games?format=tsv
+Potter	11.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Potter?format=tsv
+Superhero	11.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Superhero?format=tsv
+superhero	11.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/superhero?format=tsv
+Batman	11.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Batman?format=tsv
+TNG	9.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/TNG?format=tsv
+Shrek	9.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Shrek?format=tsv
+Alien	9.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Alien?format=tsv
+2′	9.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/2′?format=tsv
+#Marvel	9.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/%23Marvel?format=tsv
+Wolverine	9.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Wolverine?format=tsv
+Rises	9.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Rises?format=tsv
+Miserables	8.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Miserables?format=tsv
+@Marvel	8.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/@Marvel?format=tsv
+Thor	8.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Thor?format=tsv
+Disney	8.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Disney?format=tsv
+Twilight	8.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Twilight?format=tsv
+Best	8.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Best?format=tsv
+Transformers	8.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Transformers?format=tsv
+Muppets	7.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Muppets?format=tsv
+S1	7.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/S1?format=tsv
+SWATH	7.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/SWATH?format=tsv
+avenger	7.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/avenger?format=tsv
+#AVENGERS	7.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/%23AVENGERS?format=tsv
+Expendables	7.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Expendables?format=tsv
+Titanic	7.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Titanic?format=tsv
+Firefly	7.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Firefly?format=tsv
+Avatar	7.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Avatar?format=tsv
+Nemo	7.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Nemo?format=tsv
+Redemption	7.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Redemption?format=tsv
+Guardians	7.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Guardians?format=tsv
+S.H.I.E.L.D.	7.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/S.H.I.E.L.D.?format=tsv
+

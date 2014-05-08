@@ -1,0 +1,55 @@
+# error: none
+# holing: twitter2012Bigram, method: getSimilarTerms
+# format: 
+# Term	Score	Term-URI
+trade	1000.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/trade?format=tsv
+traded	113.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/traded?format=tsv
+trading	103.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/trading?format=tsv
+Trade	77.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Trade?format=tsv
+trades	59.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/trades?format=tsv
+game	50.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/game?format=tsv
+deal	46.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/deal?format=tsv
+fans	45.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/fans?format=tsv
+sign	43.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/sign?format=tsv
+acquire	43.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/acquire?format=tsv
+jersey	37.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/jersey?format=tsv
+fan	34.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/fan?format=tsv
+market	31.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/market?format=tsv
+re-sign	29.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/re-sign?format=tsv
+win	29.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/win?format=tsv
+#trade	28.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/%23trade?format=tsv
+acquiring	28.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/acquiring?format=tsv
+lose	28.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/lose?format=tsv
+1B	28.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/1B?format=tsv
+prospect	27.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/prospect?format=tsv
+3B	26.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/3B?format=tsv
+pitching	24.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/pitching?format=tsv
+business	24.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/business?format=tsv
+lead	24.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/lead?format=tsv
+announce	24.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/announce?format=tsv
+pitchers	24.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/pitchers?format=tsv
+relations	24.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/relations?format=tsv
+pitcher	24.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/pitcher?format=tsv
+industry	23.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/industry?format=tsv
+economic	23.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/economic?format=tsv
+mind	23.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/mind?format=tsv
+#TwitNewsNow	23.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/%23TwitNewsNow?format=tsv
+cooperation	23.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/cooperation?format=tsv
+guarding	22.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/guarding?format=tsv
+Acquire	22.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/Acquire?format=tsv
+blockbuster	22.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/blockbuster?format=tsv
+reportedly	22.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/reportedly?format=tsv
+draft	22.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/draft?format=tsv
+activate	22.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/activate?format=tsv
+RHP	22.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/RHP?format=tsv
+agree	21.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/agree?format=tsv
+dealt	21.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/dealt?format=tsv
+guard	21.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/guard?format=tsv
+#Phillies	21.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/%23Phillies?format=tsv
+export	21.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/export?format=tsv
+booing	21.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/booing?format=tsv
+QB	20.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/QB?format=tsv
+rookie	20.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/rookie?format=tsv
+starters	20.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/starters?format=tsv
+hits	20.0	http://maggie.lt.informatik.tu-darmstadt.de:10080/jobim/ws/api/twitter2012Bigram/jo/similar/hits?format=tsv
+

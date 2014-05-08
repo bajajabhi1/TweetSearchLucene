@@ -1,0 +1,1 @@
+{"error":null,"input":"smartphone success","holingtype":{"name":"stanford"},"holings":[{"key":{"key":"smartphone#JJ","begin":0,"end":10},"values":[{"value":"success#NN#-amod","begin":11,"end":18,"relation":"-amod"}]},{"key":{"key":"success#NN","begin":11,"end":18},"values":[{"value":"smartphone#JJ#amod","begin":0,"end":10,"relation":"amod"}]}]}

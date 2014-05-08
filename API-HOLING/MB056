@@ -1,0 +1,1 @@
+{"error":null,"input":"Hugo Chavez","holingtype":{"name":"stanford"},"holings":[{"key":{"key":"hugo#NP","begin":0,"end":4},"values":[{"value":"chavez#NP#-nn","begin":5,"end":11,"relation":"-nn"}]},{"key":{"key":"chavez#NP","begin":5,"end":11},"values":[{"value":"hugo#NP#nn","begin":0,"end":4,"relation":"nn"}]}]}

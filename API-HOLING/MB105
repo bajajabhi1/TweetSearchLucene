@@ -1,0 +1,1 @@
+{"error":null,"input":"The Avengers","holingtype":{"name":"stanford"},"holings":[{"key":{"key":"the#DT","begin":0,"end":3},"values":[{"value":"avengers#NP#-det","begin":4,"end":12,"relation":"-det"}]},{"key":{"key":"avengers#NP","begin":4,"end":12},"values":[{"value":"the#DT#det","begin":0,"end":3,"relation":"det"}]}]}

@@ -1,0 +1,1 @@
+{"error":null,"input":"Kardashians opinions","holingtype":{"name":"stanford"},"holings":[{"key":{"key":"kardashians#JJ","begin":0,"end":11},"values":[{"value":"opinion#NN#-amod","begin":12,"end":20,"relation":"-amod"}]},{"key":{"key":"opinion#NN","begin":12,"end":20},"values":[{"value":"kardashians#JJ#amod","begin":0,"end":11,"relation":"amod"}]}]}

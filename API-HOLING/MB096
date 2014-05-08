@@ -1,0 +1,1 @@
+{"error":null,"input":"Sundance attendees","holingtype":{"name":"stanford"},"holings":[{"key":{"key":"sundance#NP","begin":0,"end":8},"values":[{"value":"attendee#NN#-nn","begin":9,"end":18,"relation":"-nn"}]},{"key":{"key":"attendee#NN","begin":9,"end":18},"values":[{"value":"sundance#NP#nn","begin":0,"end":8,"relation":"nn"}]}]}

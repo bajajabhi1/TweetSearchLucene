@@ -1,0 +1,1 @@
+{"error":null,"input":"The Daily","holingtype":{"name":"stanford"},"holings":[{"key":{"key":"the#DT","begin":0,"end":3},"values":[{"value":"daily#NP#-det","begin":4,"end":9,"relation":"-det"}]},{"key":{"key":"daily#NP","begin":4,"end":9},"values":[{"value":"the#DT#det","begin":0,"end":3,"relation":"det"}]}]}

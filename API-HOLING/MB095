@@ -1,0 +1,1 @@
+{"error":null,"input":"Facebook privacy","holingtype":{"name":"stanford"},"holings":[{"key":{"key":"facebook#NP","begin":0,"end":8},"values":[{"value":"privacy#NN#-dep","begin":9,"end":16,"relation":"-dep"}]},{"key":{"key":"privacy#NN","begin":9,"end":16},"values":[{"value":"facebook#NP#dep","begin":0,"end":8,"relation":"dep"}]}]}

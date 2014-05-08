@@ -1,0 +1,1 @@
+{"error":null,"input":"Chicago blizzard","holingtype":{"name":"stanford"},"holings":[{"key":{"key":"chicago#NP","begin":0,"end":7},"values":[{"value":"blizzard#VB#-nsubj","begin":8,"end":16,"relation":"-nsubj"}]},{"key":{"key":"blizzard#VB","begin":8,"end":16},"values":[{"value":"chicago#NP#nsubj","begin":0,"end":7,"relation":"nsubj"}]}]}

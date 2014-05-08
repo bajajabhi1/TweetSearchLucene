@@ -62,6 +62,7 @@ public class TrecTopicParser {
 					queryNum = queryNum.substring(queryNum.indexOf(':')+2).trim();
 					String query = elem.getElementsByTagName(QUERY_TAG).item(0)
 							.getChildNodes().item(0).getNodeValue();
+					query = query.trim();
 					String queryTime = elem.getElementsByTagName(QUERY_TIME_TAG).item(0)
 							.getChildNodes().item(0).getNodeValue();
 					String queryTweetTime = elem.getElementsByTagName(QUERY_TWEET_TIME_TAG).item(0)

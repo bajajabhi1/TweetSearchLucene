@@ -1,0 +1,1 @@
+{"error":null,"input":"school lunches","holingtype":{"name":"stanford"},"holings":[{"key":{"key":"school#NN","begin":0,"end":6},"values":[{"value":"lunch#NN#-nn","begin":7,"end":14,"relation":"-nn"}]},{"key":{"key":"lunch#NN","begin":7,"end":14},"values":[{"value":"school#NN#nn","begin":0,"end":6,"relation":"nn"}]}]}

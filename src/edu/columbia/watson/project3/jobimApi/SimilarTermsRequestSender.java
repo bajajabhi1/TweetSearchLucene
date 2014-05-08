@@ -32,9 +32,9 @@ public class SimilarTermsRequestSender
 	public static final String SEPARATOR = " ";
 	public static final String COMMA_SEPARATOR = ",";
 	public static final String UNDERSCORE_SEPARATOR = "_";
-	public static final String QUERY_FILE = "E:/Watson-Project-Data/2012/2012.topics.MB51-110.xml";
-	public static final String OUTPUT_SIMILAR_FILE = "E:/Watson-Project-Data/2012/SimilarityFileJobimAPI";
-	public static final String OUTPUT_SIMILAR_DIR = "E:/Watson-Project-Data/2012/API-SIMILAR_TERMS";
+	public static final String QUERY_FILE = "2012.topics.MB51-110.xml";
+	public static final String OUTPUT_SIMILAR_FILE = "SimilarityFileJobimAPI";
+	public static final String OUTPUT_SIMILAR_DIR = "API-SIMILAR_TERMS";
 
 	public static void createSimilarTermsOutputFile(QueryBean queryBean, Map<String,String> queryPosMap)
 	{

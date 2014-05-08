@@ -1,0 +1,1 @@
+{"error":null,"input":"Athlete concussions","holingtype":{"name":"stanford"},"holings":[{"key":{"key":"athlete#JJ","begin":0,"end":7},"values":[{"value":"concussion#NN#-amod","begin":8,"end":19,"relation":"-amod"}]},{"key":{"key":"concussion#NN","begin":8,"end":19},"values":[{"value":"athlete#JJ#amod","begin":0,"end":7,"relation":"amod"}]}]}

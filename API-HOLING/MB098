@@ -1,0 +1,1 @@
+{"error":null,"input":"Australian floods","holingtype":{"name":"stanford"},"holings":[{"key":{"key":"australian#JJ","begin":0,"end":10},"values":[{"value":"flood#NN#-amod","begin":11,"end":17,"relation":"-amod"}]},{"key":{"key":"flood#NN","begin":11,"end":17},"values":[{"value":"australian#JJ#amod","begin":0,"end":10,"relation":"amod"}]}]}

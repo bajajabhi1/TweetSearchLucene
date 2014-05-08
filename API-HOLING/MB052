@@ -1,0 +1,1 @@
+{"error":null,"input":"Bedbug epidemic","holingtype":{"name":"stanford"},"holings":[{"key":{"key":"bedbug#JJ","begin":0,"end":6},"values":[{"value":"epidemic#NN#-amod","begin":7,"end":15,"relation":"-amod"}]},{"key":{"key":"epidemic#NN","begin":7,"end":15},"values":[{"value":"bedbug#JJ#amod","begin":0,"end":6,"relation":"amod"}]}]}

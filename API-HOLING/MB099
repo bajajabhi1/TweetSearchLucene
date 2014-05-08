@@ -1,0 +1,1 @@
+{"error":null,"input":"Superbowl commercials","holingtype":{"name":"stanford"},"holings":[{"key":{"key":"superbowl#NP","begin":0,"end":9},"values":[{"value":"commercial#NN#-nn","begin":10,"end":21,"relation":"-nn"}]},{"key":{"key":"commercial#NN","begin":10,"end":21},"values":[{"value":"superbowl#NP#nn","begin":0,"end":9,"relation":"nn"}]}]}

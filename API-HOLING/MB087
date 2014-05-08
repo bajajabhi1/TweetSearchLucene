@@ -1,0 +1,1 @@
+{"error":null,"input":"chicken recipes","holingtype":{"name":"stanford"},"holings":[{"key":{"key":"chicken#NN","begin":0,"end":7},"values":[{"value":"recipe#NN#-nn","begin":8,"end":15,"relation":"-nn"}]},{"key":{"key":"recipe#NN","begin":8,"end":15},"values":[{"value":"chicken#NN#nn","begin":0,"end":7,"relation":"nn"}]}]}

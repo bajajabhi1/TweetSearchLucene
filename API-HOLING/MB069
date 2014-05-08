@@ -1,0 +1,1 @@
+{"error":null,"input":"high taxes","holingtype":{"name":"stanford"},"holings":[{"key":{"key":"high#JJ","begin":0,"end":4},"values":[{"value":"tax#NN#-amod","begin":5,"end":10,"relation":"-amod"}]},{"key":{"key":"tax#NN","begin":5,"end":10},"values":[{"value":"high#JJ#amod","begin":0,"end":4,"relation":"amod"}]}]}

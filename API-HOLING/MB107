@@ -1,0 +1,1 @@
+{"error":null,"input":"Somalian piracy","holingtype":{"name":"stanford"},"holings":[{"key":{"key":"somalian#JJ","begin":0,"end":8},"values":[{"value":"piracy#NN#-amod","begin":9,"end":15,"relation":"-amod"}]},{"key":{"key":"piracy#NN","begin":9,"end":15},"values":[{"value":"somalian#JJ#amod","begin":0,"end":8,"relation":"amod"}]}]}

@@ -1,0 +1,1 @@
+{"error":null,"input":"McDonalds food","holingtype":{"name":"stanford"},"holings":[{"key":{"key":"mcdonald#NN","begin":0,"end":9},"values":[{"value":"food#NN#-nn","begin":10,"end":14,"relation":"-nn"}]},{"key":{"key":"food#NN","begin":10,"end":14},"values":[{"value":"mcdonald#NN#nn","begin":0,"end":9,"relation":"nn"}]}]}

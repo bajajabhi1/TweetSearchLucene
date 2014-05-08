@@ -1,0 +1,1 @@
+{"error":null,"input":"Glen Beck","holingtype":{"name":"stanford"},"holings":[{"key":{"key":"glen#NP","begin":0,"end":4},"values":[{"value":"beck#NP#-nn","begin":5,"end":9,"relation":"-nn"}]},{"key":{"key":"beck#NP","begin":5,"end":9},"values":[{"value":"glen#NP#nn","begin":0,"end":4,"relation":"nn"}]}]}
