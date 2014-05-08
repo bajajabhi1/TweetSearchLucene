@@ -38,17 +38,12 @@ public class SimilarTermsRequestSender
 
 	public static void createSimilarTermsOutputFile(QueryBean queryBean, Map<String,String> queryPosMap)
 	{
-		//TrecTopicParser topicParser = new TrecTopicParser();
 		PrintWriter writer = null;
-		//List<QueryBean> queryList = topicParser.parseTrecTopics(QUERY_FILE);
 		try 
 		{
 			writer = new PrintWriter(new FileWriter(OUTPUT_SIMILAR_FILE,true));
-			//for(QueryBean queryBean : queryList)
-			//{
 			String str = getSimilarTermsJson(queryBean.getQueryNum(), queryPosMap);
 			writer.print(str);
-			//}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

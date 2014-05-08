@@ -3,10 +3,8 @@ package edu.columbia.watson.project3;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -35,6 +33,52 @@ public class TrecTopicParser {
 			System.exit(-1);
 		}
 
+	}
+
+	public List<QueryBean> parseTrecTopics(String fileName)
+	{
+		List<QueryBean> queries = null;
+		try
+		{
+			File file = new File(fileName);
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			
+			// Load the input XML document, parse it and return an instance of the
+			// Document class.
+			Document document = builder.parse(file);
+			queries = new LinkedList<QueryBean>();
+			
+			NodeList nodeList = document.getDocumentElement().getChildNodes();
+			for (int i = 0; i < nodeList.getLength(); i++) {
+				
+				Node node = nodeList.item(i);
+				if (node.getNodeType() == Node.ELEMENT_NODE)
+				{
+					Element elem = (Element) node;					
+					// Get the value of all sub-elements.
+					String queryNum = elem.getElementsByTagName(QUERY_NUM_TAG).item(0)
+							.getChildNodes().item(0).getNodeValue();
+					queryNum = queryNum.substring(queryNum.indexOf(':')+2).trim();
+					String query = elem.getElementsByTagName(QUERY_TAG).item(0)
+							.getChildNodes().item(0).getNodeValue();
+					String queryTime = elem.getElementsByTagName(QUERY_TIME_TAG).item(0)
+							.getChildNodes().item(0).getNodeValue();
+					String queryTweetTime = elem.getElementsByTagName(QUERY_TWEET_TIME_TAG).item(0)
+							.getChildNodes().item(0).getNodeValue();
+					queryTweetTime = queryTweetTime.trim();
+					queries.add(new QueryBean(queryNum, query, queryTweetTime));					
+				}
+			}
+		}
+		catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (SAXException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}		
+		return queries;		
 	}
 
 	public List<QueryBean> parseTrecTopics(String fileName,String expandFile, String bingFile)
@@ -141,12 +185,7 @@ public class TrecTopicParser {
 					e.printStackTrace();
 				}
 			}
-		}
-
-
-		
-		
-		
+		}		
 				/*for ( int spitQueries = 0 ; spitQueries < queries.size() ; spitQueries ++){
 			QueryBean qq = queries.get(spitQueries) ;
 			String qqId = qq.getQueryNum() ;
