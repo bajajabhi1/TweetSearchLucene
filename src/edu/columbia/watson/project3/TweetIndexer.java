@@ -205,7 +205,7 @@ public class TweetIndexer {
 
 						Field idField = new StringField(TWEET_ID, tweetId, Field.Store.YES);
 						document.add(idField);
-						document.add(new TextField(SEARCH_FIELD, tweetText, Field.Store.YES ));
+						document.add(new TextField(SEARCH_FIELD, tweetText.toLowerCase(), Field.Store.YES ));
 						idxWriter.addDocument(document);
 						correcWriter.println(tweetId + COMMA_SEPERATOR + tweetText);
 					}
