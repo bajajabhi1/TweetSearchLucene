@@ -14,15 +14,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import edu.columbia.watson.project3.QueryBean;
 import edu.columbia.watson.project3.TrecTopicParser;
@@ -34,28 +27,26 @@ public class SimilarTermsTwitterRequestSender
 	public static final String SEPARATOR = " ";
 	public static final String COMMA_SEPARATOR = ",";
 	public static final String UNDERSCORE_SEPARATOR = "_";
-	public static final String QUERY_FILE = "E:/Watson-Project-Data/2012/2012.topics.MB51-110.xml";
+	public static final String QUERY_FILE = "2012.topics.MB51-110.xml";
 	public static final String OUTPUT_SIMILAR_FILE = "SimilarityFileTwitterJobimAPI";
 	public static final String OUTPUT_SIMILAR_DIR = "JOBIM_TWITTER_API";
 
-	public static void createSimilarTermsOutputFile(QueryBean queryBean, Map<String,String> queryPosMap)
+	public static void createSimilarTermsOutputFile()
 	{
-		//TrecTopicParser topicParser = new TrecTopicParser();
 		PrintWriter writer = null;
-		//List<QueryBean> queryList = topicParser.parseTrecTopics(QUERY_FILE);
 		try 
 		{
 			writer = new PrintWriter(new FileWriter(OUTPUT_SIMILAR_FILE,true));
-			//for(QueryBean queryBean : queryList)
-			//{
-			String str = getSimilarTermsJson(queryBean.getQueryNum(), queryPosMap);
-			writer.print(str);
-			//}
+			TrecTopicParser topicParser = new TrecTopicParser();
+			List<QueryBean> queryList = topicParser.parseTrecTopics(QUERY_FILE);
+			for (QueryBean queryBean: queryList)
+			{
+				String str = getSimilarTermsFromLocal(queryBean.getQueryNum());
+				writer.print(str);	
+			}			
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		finally
@@ -63,14 +54,14 @@ public class SimilarTermsTwitterRequestSender
 			if(writer!=null)
 				writer.close();
 		}
+
 	}
 
-	public static String getSimilarTermsJson(final String queryId,  Map<String,String> queryPosMap)
+	public static String getSimilarTermsFromLocal(final String queryId)
 	{
 		String queryOutputString = queryId;
 		String expandedList = "";
 		int countOfExpansions = 0;
-		//List<SimilarTermVO> simTermList = new LinkedList<SimilarTermVO>();
 		File baseDir = new File(OUTPUT_SIMILAR_DIR);
 		FilenameFilter filter = new FilenameFilter() {
 
@@ -88,20 +79,13 @@ public class SimilarTermsTwitterRequestSender
 		for(File file : fileList)
 		{
 			System.out.println(file.getAbsolutePath());
-			String queryTerm = file.getName().split(UNDERSCORE_SEPARATOR)[1].split("#")[0];
-			List<SimilarTermVO> termList = parseSimilarTermJson(file);
+			String queryTerm = file.getName().split(UNDERSCORE_SEPARATOR)[1];
+			List<SimilarTermVO> termList = getSimilarTermsFromSimilarityFile(file);
 			countOfExpansions = countOfExpansions + termList.size();
 			Collections.sort(termList,descComp);
 			for(SimilarTermVO vo: termList)
 			{
-				if(queryPosMap.get(queryTerm) == null)
-				{
-					expandedList = expandedList + queryTerm + COMMA_SEPARATOR + vo.toString() + "\n";
-				}
-				else 
-				{
-					expandedList = expandedList + queryPosMap.get(queryTerm) + COMMA_SEPARATOR + vo.toString() + "\n";
-				}
+				expandedList = expandedList + queryTerm.toLowerCase() + COMMA_SEPARATOR + vo.toString() + "\n";
 			}
 		}
 		queryOutputString = queryOutputString + COMMA_SEPARATOR + countOfExpansions + "\n";
@@ -109,57 +93,35 @@ public class SimilarTermsTwitterRequestSender
 		return queryOutputString;
 	}
 
-	public static List<SimilarTermVO> parseSimilarTermJson(File jsonFile)
+	public static List<SimilarTermVO> getSimilarTermsFromSimilarityFile(File similarityTsvFile)
 	{
-		String jsonStr = getJsonString(jsonFile);
-		List<SimilarTermVO> simTermList = new LinkedList<SimilarTermVO>();
-		JSONParser parser = new JSONParser();
-		JSONObject jsonObject;
-		SimilarTermVO simTermVo = null;
-		try 
-		{
-			jsonObject = (JSONObject) parser.parse(jsonStr);
-			// Getting JSON Array node
-			JSONArray holings = (JSONArray) jsonObject.get("results");
-			Iterator<JSONObject> iterator = holings.iterator();
-			while (iterator.hasNext()) {
-				//System.out.println("==================");
-				JSONObject inner = iterator.next();
-				Double score = (Double)inner.get("score");
-				// key contains POS here
-				String term = (String)inner.get("key");
-				term = term.substring(0,term.indexOf('#'));
-				simTermVo = new SimilarTermVO(term.trim(), score);				
-				simTermList.add(simTermVo);
-				//System.out.println(term + "," + score);
-			}
-		} 
-		catch (ParseException e)
-		{
-			e.printStackTrace();
-		}
-		return simTermList;
-	}
-
-	public static String getJsonString(File jsonFile)
-	{
-		StringBuffer jsonStr = new StringBuffer();
 		BufferedReader in = null;
+		List<SimilarTermVO> simTermList = new LinkedList<SimilarTermVO>();
+		SimilarTermVO simTermVo = null;
+		String inputLine = null;
 		try 
 		{
-			System.out.println("Loading file : " + jsonFile.getAbsolutePath());
-
-			in = new BufferedReader(new InputStreamReader(new FileInputStream(jsonFile)));
-			String inputLine = null;
+			System.out.println("Loading file : " + similarityTsvFile.getAbsolutePath());
+			in = new BufferedReader(new InputStreamReader(new FileInputStream(similarityTsvFile)));
+			int count = 0;
 			while ((inputLine = in.readLine()) != null)
 			{
-				jsonStr.append(inputLine);
+				count++;
+				if(count<5) // Skip the first four lines
+					continue;
+
+				if(!inputLine.isEmpty() && inputLine!="" && inputLine!="\\r\\n" && inputLine!="\\n")
+				{
+					String lineParts[] = inputLine.split("\t");
+					simTermVo = new SimilarTermVO(lineParts[0].trim(), new Double(lineParts[1].trim()));				
+					simTermList.add(simTermVo);
+				}
 			}
 			in.close();
 		}
-		catch(IOException ioEx)
+		catch(Exception ex)
 		{
-			ioEx.printStackTrace();
+			ex.printStackTrace();
 		}
 		finally
 		{
@@ -170,9 +132,12 @@ public class SimilarTermsTwitterRequestSender
 					// ignore
 				}
 		}
-		return jsonStr.toString();
+		return simTermList;
 	}
 
+	/**
+	 * This method downloads the similarity results, for each query term in topic file, from JoBim Twitter API and saves it to a local file
+	 */
 	public static void downloadSimilarTermsTwitterJoBimAPI()
 	{
 		TrecTopicParser topicParser = new TrecTopicParser();
@@ -189,7 +154,7 @@ public class SimilarTermsTwitterRequestSender
 	}
 
 	/**
-	 * This method sends the query to Jobim API and gets the similar terms json and saves it local file
+	 * This method sends the query to Jobim Twitter API and gets the similar terms tsv and saves it local file
 	 * @param queryId
 	 * @param searchQuery
 	 */
@@ -205,11 +170,12 @@ public class SimilarTermsTwitterRequestSender
 			if(!holdingOutputDir.exists())
 				holdingOutputDir.mkdirs();
 			File output = new File(holdingOutputDir, queryId + UNDERSCORE_SEPARATOR + searchQuery);
-			writer = new PrintWriter(output);
+			writer = new PrintWriter(output, "UTF-8");
 			writer.println(tsvResult);
 		}
 		catch(FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 		finally
@@ -218,6 +184,7 @@ public class SimilarTermsTwitterRequestSender
 				writer.close();
 		}
 	}
+	
 
 	public static String sendRequest(String searchQuery)
 	{
@@ -254,9 +221,11 @@ public class SimilarTermsTwitterRequestSender
 		return response.toString();
 	}
 
+	
 	public static void main(String args[]) throws UnsupportedEncodingException
 	{
-		downloadSimilarTermsTwitterJoBimAPI();
+		//downloadSimilarTermsTwitterJoBimAPI();
+		createSimilarTermsOutputFile();
 	}
 
 	public static String replaceSpecChar(String input)
@@ -268,11 +237,11 @@ public class SimilarTermsTwitterRequestSender
 
 		@Override
 		public int compare(SimilarTermVO o1, SimilarTermVO o2) {
-			// TODO Auto-generated method stub
 			return (int) Math.round(o2.getScore()-o1.getScore());
 		}
 	};
 }
+
 class SimilarTermVO
 {
 	String term = null;
@@ -297,6 +266,6 @@ class SimilarTermVO
 
 	public String toString()
 	{
-		return term + "," + score.toString().trim();
+		return term.toLowerCase() + "," + score.toString().trim();
 	}
 }
