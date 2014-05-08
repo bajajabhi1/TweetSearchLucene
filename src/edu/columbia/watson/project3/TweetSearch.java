@@ -136,6 +136,8 @@ public class TweetSearch {
 		double scoreYet = 0 ; 
 		
 		switch ( method){
+		case 0 : expanded = query ; 
+				 break ;
 		case 1:		expanded = query;
 					for ( int i =0 ; i < queryW.length ; i ++ ){
 						int expansionPerWord = 0 ;
@@ -261,13 +263,13 @@ public class TweetSearch {
 					double searchQueryPower = -1;
 					List<String> expandedQueryList = new ArrayList<String>() ;
 					List< Double>expandedQueryScoreList = new ArrayList<Double>();
-					String searchQuery = expandQuery(queryBean, 4, 5, 0 , 100, searchQueryPower, expandedQueryList, expandedQueryScoreList);
+					String searchQuery = expandQuery(queryBean, 0, 5, 0 , 100, searchQueryPower, expandedQueryList, expandedQueryScoreList);
 					System.out.println(expandedQueryList.size());
 					//searchQuery = searchQuery ; 
 					//String searchQuery = queryBean.getQuery();
 					
 					String[] searchQueryW = searchQuery.split(" ");
-					
+					searchQuery.toLowerCase() ;
 					Query query = null	;
 					try{
 						 query = parser.parse(searchQuery);
@@ -375,7 +377,7 @@ public class TweetSearch {
 					queryStr = queryScanner.next();
 					queryScanner.close();
 				}
-				
+				queryStr.toLowerCase() ; 
 				Query query = parser.parse(queryStr.trim());
 				System.out.println("Searching for: " + query.toString(TweetIndexer.SEARCH_FIELD));
 				
