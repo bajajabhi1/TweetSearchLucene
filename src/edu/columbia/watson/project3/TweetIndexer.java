@@ -24,16 +24,16 @@ import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 
 public class TweetIndexer {
-
+	
 	public static final int COMMA_SEPERATOR_POS = 17;
 	public static final char COMMA_SEPERATOR = ',';
 	public static final char LINE_JOIN_CHAR = ' ';
 	public static final String SEARCH_FIELD = "text";
 	public static final String TWEET_ID = "id";	
-	public static final String DIR_CORRECTED_OUPTUT = "E:/Watson-Project-Data/2012/tweets-Id-corrected";
-
+	public static final String DIR_CORRECTED_OUPTUT = "home/arpitg1991/Desktop/WatsonData/tweets-Id-corrected";
+	
 	public static void main(String[] args)
-	{
+	{		
 		String usage = "java edu.columbia.watson.project.IndexFiles [-index INDEX_PATH] [-docs DOCS_PATH]n\n\n"
 				+ "This indexes the documents in DOCS_PATH, creating a Lucene index"
 				+ "in INDEX_PATH that can be searched with SearchFiles";
@@ -69,24 +69,24 @@ public class TweetIndexer {
 
 		Date start = new Date();
 		try
-		{
+		{	
 			System.out.println("Indexing to directory '" + indexPath + "'...");
-
+			
 			Directory dir = FSDirectory.open(new File(indexPath));
 			Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_47);
 			IndexWriterConfig iwc = new IndexWriterConfig(Version.LUCENE_47, analyzer);
 			iwc.setOpenMode(OpenMode.CREATE);
-
+			
 			// Optional: for better indexing performance, if you
 			// are indexing many documents, increase the RAM
 			// buffer.  But if you do this, increase the max heap
 			// size to the JVM (eg add -Xmx512m or -Xmx1g):
 			//
 			// iwc.setRAMBufferSizeMB(256.0);
-
+			
 			IndexWriter writer = new IndexWriter(dir, iwc);
 			runIndexer(writer, docDir, correcdocDir);
-
+			
 			// NOTE: if you want to maximize search performance,
 			// you can optionally call forceMerge here.  This can be
 			// a terribly costly operation, so generally it's only
@@ -94,12 +94,12 @@ public class TweetIndexer {
 			// you're done adding documents to it):
 			//
 			// writer.forceMerge(1);
-
+			
 			writer.close();
-
+			
 			Date end = new Date();
 			System.out.println(end.getTime() - start.getTime() + " total milliseconds");
-
+			
 		} 
 		catch (IOException e) 
 		{
