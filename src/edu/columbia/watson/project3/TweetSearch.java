@@ -50,7 +50,7 @@ public class TweetSearch {
 		String expandString = null;
 		String expandFile = null ; 
 		String bingFile = null ; 
-		int hitsPerPage = 5000;
+		int hitsPerPage = 2000;
 		
 		for(int i = 0;i < args.length;i++)
 		{
@@ -255,8 +255,12 @@ public class TweetSearch {
 			// Take the query from arguments otherwise from command line input
 			if (queryFile != null)
 			{   
-				TrecTopicParser topicParser = new TrecTopicParser();
-				List<QueryBean> queryList = topicParser.parseTrecTopics(queryFile,expandFile,bingFile);
+				//TrecTopicParser topicParser = new TrecTopicParser();
+				//List<QueryBean> queryList = topicParser.parseTrecTopics(queryFile,expandFile,bingFile);
+				
+				BingTopicParser topicParser = new BingTopicParser();
+				List<QueryBean> queryList = topicParser.parseTrecTopics(queryFile);
+				
 				
 				for(QueryBean queryBean : queryList)
 				{	
@@ -310,7 +314,7 @@ public class TweetSearch {
 						//System.out.println("in It" ) ;
 						int docId = hits[hitCount].doc;
 						Document d = searcher.doc(docId);
-						//System.out.println(d.get(ID) + " " + d.get(SEARCH_FIELD) + " " + hits[hitCount].score);
+						//System.out.println(d.get(TweetIndexer.TWEET_ID) + " " + d.get(TweetIndexer.SEARCH_FIELD) + " " + hits[hitCount].score);
 						
 						writer.println(queryBean.getQueryNum() + " " + d.get(TweetIndexer.TWEET_ID) + " " + hits[hitCount].score + " " + RUN_ID); 
 						

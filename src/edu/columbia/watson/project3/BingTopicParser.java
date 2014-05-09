@@ -39,7 +39,7 @@ public class BingTopicParser {
 		List<QueryBean> queries = null;
 		try
 		{
-			File file = new File(fileName);
+			//File file = new File(fileName);
 			BufferedReader bf1 = new BufferedReader ( new FileReader ( fileName)) ;
 			queries = new LinkedList<QueryBean>();
 			String line  ; 
@@ -57,7 +57,7 @@ public class BingTopicParser {
 				queries.add(new QueryBean(queryNum, query, queryTweetTime));
 										
 			}
-			
+			bf1.close();
 		}
 		catch (IOException e) {
 			e.printStackTrace();
