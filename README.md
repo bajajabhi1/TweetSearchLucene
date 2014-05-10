@@ -10,3 +10,6 @@ This wiki for the project documents the following experiments:
 * Query expansion from a tri-gram model using a Distributional Thesaurus calculated on the Twitter corpus
 
 As a collateral for our project we have produced the following document that develops a how-to plus tips and tricks on [Running JoBimText on Amazon EMR](https://docs.google.com/document/d/1ltCxQBkWx9qSuHKNbzw9IkmZKTK9MGNTIFmEKw1VIL4/edit?usp=sharing).
+
+##Documentation
+Our [iki](https://github.com/bajajabhi1/TweetSearchLucene/wiki) contains the detailed documentation for the project.
