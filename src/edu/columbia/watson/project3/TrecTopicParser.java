@@ -165,7 +165,8 @@ public class TrecTopicParser {
 							line = br.readLine() ;
 							//System.out.println(line);
 							String[] wordExp = line.split(csvSplitBy);
-							expandingQueryId.addExpansion(wordExp[0], wordExp[1], Double.parseDouble(wordExp[2]) );
+							if (wordExp.length == 3)
+								expandingQueryId.addExpansion(wordExp[0], wordExp[1], Double.parseDouble(wordExp[2]) );
 						}
 						break;
 					}

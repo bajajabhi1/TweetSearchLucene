@@ -50,6 +50,8 @@ public class TweetSearch {
 		String expandString = null;
 		String expandFile = null ; 
 		String bingFile = null ; 
+		List<String> fileNames = new ArrayList<String>() ;
+		
 		int hitsPerPage = 2000;
 		
 		for(int i = 0;i < args.length;i++)
@@ -95,13 +97,19 @@ public class TweetSearch {
 				bingFile = args[i+1];
 				i ++ ; 
 			}
+			else if ("-fileNames".equals(args[i])){
+				for ( int i1 = 1 ; i1 < 30 ; i1 ++){
+					fileNames.add(args[i+i1]);
+				}
+			}
 			
 		}
 
 		IndexReader reader = DirectoryReader.open(FSDirectory.open(new File(index)));
 		IndexSearcher searcher = new IndexSearcher(reader);
-		runSearch(searcher, queryFile, expandFile,bingFile, queryString, expandString , outputFile, hitsPerPage);
-
+			
+			runSearch(searcher, queryFile, expandFile,bingFile, queryString, expandString , outputFile, hitsPerPage);
+		
 		reader.close();
 	}
 	public static void createWordExpansionList(List<String> allQueries , List<ArrayList<String> > wordExps , int i  , String queryStr) {
@@ -255,11 +263,11 @@ public class TweetSearch {
 			// Take the query from arguments otherwise from command line input
 			if (queryFile != null)
 			{   
-				//TrecTopicParser topicParser = new TrecTopicParser();
-				//List<QueryBean> queryList = topicParser.parseTrecTopics(queryFile,expandFile,bingFile);
+				TrecTopicParser topicParser = new TrecTopicParser();
+				List<QueryBean> queryList = topicParser.parseTrecTopics(queryFile,expandFile,bingFile);
 				
-				BingTopicParser topicParser = new BingTopicParser();
-				List<QueryBean> queryList = topicParser.parseTrecTopics(queryFile);
+				//BingTopicParser topicParser = new BingTopicParser();
+				//List<QueryBean> queryList = topicParser.parseTrecTopics(queryFile);
 				
 				
 				for(QueryBean queryBean : queryList)
@@ -267,7 +275,7 @@ public class TweetSearch {
 					double searchQueryPower = -1;
 					List<String> expandedQueryList = new ArrayList<String>() ;
 					List< Double>expandedQueryScoreList = new ArrayList<Double>();
-					String searchQuery = expandQuery(queryBean, 0, 5, 0 , 100, searchQueryPower, expandedQueryList, expandedQueryScoreList);
+					String searchQuery = expandQuery(queryBean, 1, 3, 0 , 100, searchQueryPower, expandedQueryList, expandedQueryScoreList);
 					System.out.println(expandedQueryList.size());
 					//searchQuery = searchQuery ; 
 					//String searchQuery = queryBean.getQuery();
@@ -281,12 +289,12 @@ public class TweetSearch {
 					catch(Exception E){
 						
 					}
-					System.out.println("\nSearching for: " + queryBean.getQueryNum() + " :: " + queryBean.getQuery() + " :: " + searchQuery);
+					//System.out.println("\nSearching for: " + queryBean.getQueryNum() + " :: " + queryBean.getQuery() + " :: " + searchQuery);
 					
 					//search here
 					
 					collector = TopScoreDocCollector.create(hitsPerPage, true);
-					System.out.println("Searching for range '" + 0 + " to " + queryBean.getQueryTweetTime() + "' using RangeQuery");
+					//System.out.println("Searching for range '" + 0 + " to " + queryBean.getQueryTweetTime() + "' using RangeQuery");
 																		
 					Query rangeQuery = TermRangeQuery.newStringRange(TweetIndexer.TWEET_ID, RANGE_START_TWEET_ID, queryBean.getQueryTweetTime(), true,true);
 					SpanQuery[] nullVal= new SpanQuery[searchQueryW.length] ;
