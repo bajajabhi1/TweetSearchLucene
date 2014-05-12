@@ -13,7 +13,7 @@ def main():
     p30List = list()
     p20List = list()
     p10List = list()
-    onlyfiles = [ f for f in listdir('evalFiles') if isfile(join('evalFiles',f)) ]
+    onlyfiles = [ f for f in listdir('eval') if isfile(join('eval',f)) ]
     for fileName in onlyfiles:
         fileDict = dict()
         p30Dict = dict()
