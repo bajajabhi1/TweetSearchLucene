@@ -275,7 +275,7 @@ public class TweetSearch {
 					double searchQueryPower = -1;
 					List<String> expandedQueryList = new ArrayList<String>() ;
 					List< Double>expandedQueryScoreList = new ArrayList<Double>();
-					String searchQuery = expandQuery(queryBean, 1, 3, 0 , 100, searchQueryPower, expandedQueryList, expandedQueryScoreList);
+					String searchQuery = expandQuery(queryBean, 4, 5, 0 , 100, searchQueryPower, expandedQueryList, expandedQueryScoreList);
 					System.out.println(expandedQueryList.size());
 					//searchQuery = searchQuery ; 
 					//String searchQuery = queryBean.getQuery();
