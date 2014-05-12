@@ -5,7 +5,7 @@
 	<classpathentry kind="lib" path="lib/lucene-core-4.7.2.jar"/>
 	<classpathentry kind="lib" path="lib/lucene-queryparser-4.7.2.jar"/>
 	<classpathentry kind="lib" path="lib/lucene-analyzers-common-4.7.2.jar"/>
-	<classpathentry kind="lib" path="lib/json-simple-1.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.27-bin.jar"/>
+	<classpathentry kind="lib" path="/home/arpitg1991/TweetSearchLucene/lib/json-simple-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
